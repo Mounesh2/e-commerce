@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Auth Section -->
+        <div id="auth-section">
+            <div class="auth-container">
+                <h2 id="auth-title">Login</h2>
+                <form id="auth-form">
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <div id="signup-fields" style="display: none;">
+                        <input type="text" id="fullName" placeholder="Full Name">
+                        <input type="tel" id="phone" placeholder="Phone Number">
+                        <input type="text" id="address" placeholder="Address">
+                    </div>
+                    <button type="submit" id="auth-submit">Login</button>
+                </form>
+                <p id="auth-toggle">Don't have an account? <span id="toggle-link">Sign up</span></p>
+            </div>
+        </div>
+
+        <!-- Main App Section -->
+        <div id="main-section" style="display: none;">
+            <nav>
+                <div class="nav-left">
+                    <h1>🛍️ AnyStore</h1>
+                    <ul class="nav-links">
+                        <li><a href="#" id="nav-home">Home</a></li>
+                        <li><a href="#" id="nav-products">Products</a></li>
+                        <li><a href="#" id="nav-about">About</a></li>
+                        <li><a href="#" id="nav-contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="nav-right">
+                    <div class="nav-buttons">
+                        <button id="show-items">Items</button>
+                        <button id="show-cart">Cart (<span id="cart-count">0</span>)</button>
+                        <button id="logout">Logout</button>
+                    </div>
+                    <div class="profile-icon" id="profile-icon" title="Profile"></div>
+                    <div class="mobile-menu-btn" id="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- Mobile Navigation -->
+            <div class="mobile-nav" id="mobile-nav">
+                <div class="mobile-nav-content">
+                    <ul class="mobile-nav-links">
+                        <li><a href="#" id="mobile-nav-home">Home</a></li>
+                        <li><a href="#" id="mobile-nav-products">Products</a></li>
+                        <li><a href="#" id="mobile-nav-about">About</a></li>
+                        <li><a href="#" id="mobile-nav-contact">Contact Us</a></li>
+                    </ul>
+                    
+                    <div class="mobile-nav-buttons">
+                        <button id="mobile-show-items">Items</button>
+                        <button id="mobile-show-cart">Cart (<span id="mobile-cart-count">0</span>)</button>
+                        <button id="mobile-logout">Logout</button>
+                    </div>
+                    
+                    <div class="mobile-profile">
+                        <div class="mobile-profile-icon" id="mobile-profile-icon">👤</div>
+                        <span>Profile</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Items Page -->
+            <div id="items-page">
+                <!-- Hero Section -->
+                <div class="hero-section">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Shopping Experience" class="hero-image">
+                    <div class="hero-overlay">
+                        <h2>Welcome to 🛍️ AnyStore</h2>
+                        <p>Discover amazing products at great prices</p>
+                    </div>
+                </div>
+                
+                <!-- Best Sellers Section -->
+                <div class="home-section">
+                    <h2 class="section-title">🏆 Best Sellers</h2>
+                    <div id="best-sellers-list" class="home-items-grid"></div>
+                </div>
+                
+                <!-- Top Discounts Section -->
+                <div class="home-section">
+                    <h2 class="section-title">🔥 Top Discounts</h2>
+                    <div id="top-discounts-list" class="home-items-grid"></div>
+                </div>
+            </div>
+
+            <!-- Cart Page -->
+            <div id="cart-page" style="display: none;">
+                <h2>Shopping Cart</h2>
+                <div id="cart-items"></div>
+                <div id="cart-total"></div>
+            </div>
+
+            <!-- Product Detail Page -->
+            <div id="product-page" style="display: none;">
+                <div class="product-container">
+                    <button id="back-to-items" class="back-btn">← Back to Products</button>
+                    <div class="product-detail">
+                        <div class="product-images">
+                            <img id="main-product-image" class="main-image" src="" alt="">
+                            <div class="image-gallery">
+                                <img class="gallery-image" src="" alt="">
+                                <img class="gallery-image" src="" alt="">
+                                <img class="gallery-image" src="" alt="">
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h1 id="product-name"></h1>
+                            <p id="product-category" class="category"></p>
+                            <div id="product-price" class="price"></div>
+                            <div id="product-description" class="description"></div>
+                            <button id="add-to-cart-detail" class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="related-products">
+                        <h2>Related Products</h2>
+                        <div id="related-items"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Page -->
+            <div id="products-page" style="display: none;">
+                <div class="products-container">
+                    <div class="products-header">
+                        <h1 class="products-title">All Products</h1>
+                        <p class="products-subtitle">Discover our complete collection</p>
+                    </div>
+                    
+                    <!-- Enhanced Filters -->
+                    <div class="products-filters">
+                        <select id="products-category-filter">
+                            <option value="">All Categories</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Books">Books</option>
+                        </select>
+                        <input type="number" id="products-min-price" placeholder="Min Price">
+                        <input type="number" id="products-max-price" placeholder="Max Price">
+                        <select id="sort-filter">
+                            <option value="">Sort By</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="name">Name: A to Z</option>
+                        </select>
+                        <button id="products-apply-filters">Apply Filters</button>
+                        <button id="products-clear-filters">Clear All</button>
+                    </div>
+                    
+                    <!-- Products Grid -->
+                    <div class="products-grid">
+                        <div id="products-items-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Page -->
+            <div id="about-page" style="display: none;">
+                <div class="page-container">
+                    <div class="page-header">
+                        <h1 class="page-title">About AnyStore</h1>
+                        <p class="page-subtitle">Your trusted e-commerce partner</p>
+                    </div>
+                    
+                    <!-- About Hero Image -->
+                    <div class="about-hero">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Our Team" class="about-image">
+                        <div class="about-image-overlay">
+                            <h3>Building the Future of E-commerce</h3>
+                            <p>Connecting customers with quality products worldwide</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <div class="about-content">
+                            <div class="about-section">
+                                <h2>🛍️ Our Story</h2>
+                                <p>Founded in 2024, AnyStore has been dedicated to providing customers with the best online shopping experience. We believe in quality products, competitive prices, and exceptional customer service.</p>
+                            </div>
+                            
+                            <div class="about-section">
+                                <h2>🎯 Our Mission</h2>
+                                <p>To make online shopping accessible, enjoyable, and trustworthy for everyone. We curate the finest products across electronics, clothing, and books to meet all your needs.</p>
+                            </div>
+                            
+                            <div class="about-section">
+                                <h2>⭐ Why Choose Us</h2>
+                                <div class="features-grid">
+                                    <div class="feature">
+                                        <span class="feature-icon">🚚</span>
+                                        <h3>Fast Delivery</h3>
+                                        <p>Quick and reliable shipping</p>
+                                    </div>
+                                    <div class="feature">
+                                        <span class="feature-icon">🔒</span>
+                                        <h3>Secure Shopping</h3>
+                                        <p>Your data is always protected</p>
+                                    </div>
+                                    <div class="feature">
+                                        <span class="feature-icon">💎</span>
+                                        <h3>Quality Products</h3>
+                                        <p>Only the best for our customers</p>
+                                    </div>
+                                    <div class="feature">
+                                        <span class="feature-icon">🎧</span>
+                                        <h3>24/7 Support</h3>
+                                        <p>We're here when you need us</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Us Page -->
+            <div id="contact-page" style="display: none;">
+                <div class="page-container">
+                    <div class="page-header">
+                        <h1 class="page-title">Contact Us</h1>
+                        <p class="page-subtitle">We'd love to hear from you</p>
+                    </div>
+                    
+                    <!-- Contact Hero Image -->
+                    <div class="contact-hero">
+                        <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Contact Us" class="contact-image">
+                        <div class="contact-image-overlay">
+                            <h3>Get in Touch</h3>
+                            <p>We're here to help and answer any questions you might have</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-content">
+                        <div class="contact-info">
+                            <div class="contact-card">
+                                <h2>📍 Visit Our Store</h2>
+                                <p>123 Commerce Street<br>Shopping District<br>New York, NY 10001</p>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <h2>📞 Call Us</h2>
+                                <p>Customer Service: <strong>+1 (555) 123-4567</strong><br>
+                                Sales: <strong>+1 (555) 987-6543</strong><br>
+                                Support: <strong>+1 (555) 456-7890</strong></p>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <h2>✉️ Email Us</h2>
+                                <p>General: <strong>info@anystore.com</strong><br>
+                                Support: <strong>support@anystore.com</strong><br>
+                                Sales: <strong>sales@anystore.com</strong></p>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <h2>🕒 Business Hours</h2>
+                                <p>Monday - Friday: 9:00 AM - 8:00 PM<br>
+                                Saturday: 10:00 AM - 6:00 PM<br>
+                                Sunday: 12:00 PM - 5:00 PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-form-container">
+                            <div class="content-card">
+                                <h2>Send us a Message</h2>
+                                <form class="contact-form">
+                                    <input type="text" placeholder="Your Name" required>
+                                    <input type="email" placeholder="Your Email" required>
+                                    <input type="text" placeholder="Subject" required>
+                                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                                    <button type="submit">Send Message</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div id="profile-page" style="display: none;">
+                <div class="profile-container">
+                    <button id="back-from-profile" class="back-btn">← Back</button>
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar">👤</div>
+                            <h2 id="profile-user-name">John Doe</h2>
+                            <p id="profile-user-email">john.doe@example.com</p>
+                        </div>
+                        <div class="profile-details">
+                            <div class="detail-item">
+                                <span class="detail-label">📞 Phone:</span>
+                                <span class="detail-value">+1 (555) 123-4567</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">📍 Address:</span>
+                                <span class="detail-value">123 Main St, City, State 12345</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">📅 Member Since:</span>
+                                <span class="detail-value">January 2024</span>
+                            </div>
+                        </div>
+                        <div class="profile-orders">
+                            <h3>📦 Recent Orders</h3>
+                            <div id="user-orders">
+                                <div class="order-item">
+                                    <span>Order #1001 - MacBook Pro</span>
+                                    <span class="order-status delivered">Delivered</span>
+                                </div>
+                                <div class="order-item">
+                                    <span>Order #1002 - iPhone 15 Pro</span>
+                                    <span class="order-status shipped">Shipped</span>
+                                </div>
+                                <div class="order-item">
+                                    <span>Order #1003 - Wireless Headphones</span>
+                                    <span class="order-status processing">Processing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theme Selector -->
+        <div class="theme-selector">
+            <h4>🎨 Themes</h4>
+            <div class="theme-options">
+                <div class="theme-option ocean active" data-theme="ocean" title="Ocean"></div>
+                <div class="theme-option sunset" data-theme="sunset" title="Sunset"></div>
+                <div class="theme-option forest" data-theme="forest" title="Forest"></div>
+                <div class="theme-option midnight" data-theme="midnight" title="Midnight"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 AnyStore. All rights reserved.</p>
+            <p>Designed and developed with ❤️ for amazing shopping experience</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
