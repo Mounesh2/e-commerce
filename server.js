@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -6,9 +7,9 @@ const path = require('path');
 const mongoose = require('mongoose');
 
 const app = express();
-const PORT = 3000;
-const JWT_SECRET = 'Mounesh';
-const MONGODB_URI = 'mongodb+srv://mouneshspattar:mou123456@cluster0.xsgp5pe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const PORT = process.env.PORT || 3000;
+const JWT_SECRET = process.env.JWT_SECRET;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 // MongoDB connection
 mongoose.connect(MONGODB_URI)
